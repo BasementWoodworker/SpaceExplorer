@@ -39,14 +39,18 @@ public class Ship : MonoBehaviour
     {
         Vector2 moveVal = moveAction.ReadValue<Vector2>();
         // Movement
-        if ((thrust > 0 && moveVal.y > 0) || (thrust < 0 && moveVal.y < 0))
+        if ((thrust >= 0 && moveVal.y > 0) || (thrust < 0 && moveVal.y < 0))
         {
             // Accelerating
             thrust += Time.deltaTime * moveVal.y * acceleration / 1f;
-        } else
+        } else if ((thrust >= 0 && moveVal.y < 0) || (thrust < 0 && moveVal.y > 0))
         {
             // Braking
             thrust += Time.deltaTime * moveVal.y * brakingStrength / 1f;
+        } else if (thrust != 0f)
+        {
+            // Natural speed decay
+            thrust = thrust >= 0 ? Mathf.Max(0, thrust - Time.deltaTime * speedDecay) : Mathf.Min(0, thrust + Time.deltaTime * speedDecay);
         }
         transform.Translate(new Vector3(0, thrust * Time.deltaTime, 0));
 
