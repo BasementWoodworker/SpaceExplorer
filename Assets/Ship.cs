@@ -18,7 +18,7 @@ public class Ship : MonoBehaviour
     private float acceleration = 10f;
     private float brakingStrength = 20f;
     private float speedDecay = 5f;
-    private float turnSpeed = 0.5f;
+    private float turnSpeed = 0.3f;
     private InputAction moveAction;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
